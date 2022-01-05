@@ -1,0 +1,56 @@
+CREATE DATABASE futebol.
+DB:     Futebol
+Tabela: odds
+ID[int], TIME HOME[charset], TIME AWAYS[charset], ODD HOME[float], ODD AWAYS[float], ODD DRAWN[float],DATA/HORA BANCO[data], DATA/HORA SISTEMA[data].
+Tabela: lista
+ID[int], TIME HOME[charset], TIME AWAYS[charset], Campeonato[charset]
+Tabela: requests
+ID[int],USERFROM[charset]
+##FEAT
+CREATE TABLE odds(
+ID int(4) AUTO_INCREMENT,
+TIME_HOME varchar(50) NOT NULL,
+TIME_AWAYS varchar(50) NOT NULL,
+ODD_HOME float(),
+ODD_AWAYS float(),
+ODD_DRAWN float(),
+DATE_BANCO DATETIME ,
+DATE_SISTEMA DATETIME,
+PRIMARY KEY (ID)
+);
+USE Futebol;
+CREATE TABLE odds(
+ID int(4) AUTO_INCREMENT,
+TIME_HOME varchar(50) NOT NULL,
+TIME_AWAYS varchar(50) NOT NULL,
+ODD_HOME float(10,2),
+ODD_AWAYS float(10,2),
+ODD_DRAWN float(10,2),
+PRIMARY KEY (ID)
+);
+Teste:
+USE Futebol;
+insert into odds(ID,TIME_HOME,TIME_AWAYS,ODD_HOME,ODD_AWAYS,ODD_DRAWN) values ("Flamengo","Vasco","2.5","2.2","2.1");
+Tabela: lista
+ID[int], TIME HOME[charset], TIME AWAYS[charset], Campeonato[charset]
+USE Futebol;
+CREATE TABLE lista(
+ID int(4) AUTO_INCREMENT,
+TIME_HOME varchar(50) NOT NULL,
+TIME_AWAYS varchar(50) NOT NULL,
+CAMPEONATO varchar(50) NOT NULL,
+PRIMARY KEY (ID)
+);
+este:
+USE Futebol;
+insert into lista(ID,TIME_HOME,TIME_AWAYS,CAMPEONATO) values ("Flamengo","Vasco","CARIOCA");
+#Teste:
+USE Futebol;
+Tabela: requests
+ID[int],USERFROM[charset]
+CREATE TABLE requests(
+ID int(4) AUTO_INCREMENT,
+USERFROM varchar(50) NOT NULL,
+PRIMARY KEY (ID)
+);
+insert into requests(USERFROM) values ("GGLOBO");
