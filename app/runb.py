@@ -46,7 +46,19 @@ def blob(size):
             array.append(I)
             jazz = reqX(array)            
             if jazz['results'] >= 1:
+                
+                shape()
+                for y in range(0,H):                                    
+                    
+                    AA = G[y]['detail']
+                    m = re. search('Red',AA)
+                    #shape()
+                    if m:                        
+                        print(AA)
                 print('Time:{} x {} - liga:{} pais:{} elapsed: {} Fixture: {}\n'.format(C,D,E,F,B,I))
+                shape()
+                        
+                        
                 print(jazz)
                 shape()
             
@@ -78,4 +90,4 @@ def main():
 if __name__ == "__main__":
     while True:        
         main()
-        time.sleep(300)
+        time.sleep(60)
