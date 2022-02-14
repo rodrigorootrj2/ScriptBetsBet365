@@ -1,16 +1,12 @@
 import time
 import requests
-import os
-import json
 import re
+import json
 from env.envs import APITOKEN
-
-
-#from foo import bar
 TOKEN = APITOKEN
 
 def reqX(fixtures):
-    import requests
+    
     var = fixtures
     url = "https://api-football-v1.p.rapidapi.com/v3/odds"
     for x in range(0,len(var)):        
@@ -52,7 +48,7 @@ def blob(size):
                     
                     AA = G[y]['detail']
                     m = re. search('Red',AA)
-                    #shape()
+                    
                     if m:                        
                         print(AA)
                 print('Time:{} x {} - liga:{} pais:{} elapsed: {} Fixture: {}\n'.format(C,D,E,F,B,I))
@@ -60,12 +56,11 @@ def blob(size):
                         
                         
                 print(jazz)
-                shape()
+                
             
         
     
-def betslive():
-    import requests
+def betslive():   
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
     querystring = {"live":"all"}
@@ -79,13 +74,19 @@ def betslive():
     blob(responsep)
 
 def shape():
-    tarugo = '######################################################################'
+    tarugo = '#' * 70
+    print(tarugo)
+def shapend():
+    tarugo = '=' * 70
     print(tarugo)
 
 def main():
     print('Iniciando os Trabalhos')
     betslive()
     print('Finalizando os Trabalhos')
+    shape()
+    shapend()
+    shape()
 
 if __name__ == "__main__":
     while True:        
