@@ -20,15 +20,15 @@ def reqX(fixtures):
         
         return responsep
      
-def blob(size):
+def processamentodecantos(size):
     bar = size
     size = len(bar)
     array = []
-    for x in range(0,size):
-        A = bar[x]['goals']
-        A1 = bar[x]['goals']['home']
-        A2 =  bar[x]['goals']['away']
-        B = bar[x]['fixture']['status']['elapsed']
+    tempodojogo = 80
+    for x in range(0,size):        
+        golshome = bar[x]['goals']['home']
+        golsaway =  bar[x]['goals']['away']
+        elapsed = bar[x]['fixture']['status']['elapsed']
         C = bar[x]['teams']['home']['name']
         D = bar[x]['teams']['away']['name']
         E = bar[x]['league']['name']
@@ -36,7 +36,7 @@ def blob(size):
         G = bar[x]['events']
         H = len(G)
         I = bar[x]['fixture']['id']
-        if A1 == A2 and B >= 80:                    
+        if golshome == golsaway and elapsed >= tempodojogo:                    
             array.append(I)
             jazz = reqX(array)            
             if jazz['results'] >= 1:
@@ -49,7 +49,7 @@ def blob(size):
                     
                     if m:                        
                         print(AA)
-                print('Time:{} x {} - liga:{} pais:{} elapsed: {} Fixture: {}\n'.format(C,D,E,F,B,I))
+                print('Time:{} x {} - liga:{} pais:{} elapsed: {} Fixture: {}\n'.format(C,D,E,F,elapsed,I))
                 shape()
                         
                         
@@ -66,10 +66,8 @@ def betslive():
         'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
         'x-rapidapi-key': TOKEN
         }
-
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    responsep = response.json()['response']   
-    blob(responsep)
+    fixtureslive = requests.request("GET", url, headers=headers, params=querystring).json()['response'] 
+    processamentodecantos(fixtureslive)
 
 def shape():
     tarugo = '#' * 70
