@@ -5,12 +5,10 @@ import json
 from env.envs import APITOKEN
 TOKEN = APITOKEN
 
-def reqX(fixtures):
-    
+def reqX(fixtures):    
     var = fixtures
     url = "https://api-football-v1.p.rapidapi.com/v3/odds"
-    for x in range(0,len(var)):        
-        #print(var[x])
+    for x in range(0,len(var)):                
         querystring = {"fixture":'{}'.format(var[x]) ,"bookmaker":"8","bet":"45"}
         headers = {
             'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
