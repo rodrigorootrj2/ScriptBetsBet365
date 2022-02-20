@@ -5,55 +5,56 @@ import json
 from env.envs import APITOKEN
 TOKEN = APITOKEN
 
-def reqX(fixtures):    
-    var = fixtures
+def requisicaodasfixtures(fixtures):    
+    '''
+   Query: bookmaker 8, é a bet365.
+          bet 45 = cantos.
+    '''
     url = "https://api-football-v1.p.rapidapi.com/v3/odds"
-    for x in range(0,len(var)):                
-        querystring = {"fixture":'{}'.format(var[x]) ,"bookmaker":"8","bet":"45"}
-        headers = {
+    #print(fixtures)              
+    querystring = {"fixture":'{}'.format(fixtures) ,"bookmaker":"8","bet":"45"}
+    headers = {
             'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
             'x-rapidapi-key': TOKEN
             }
-
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        responsep = response.json()
-        
-        return responsep
+    requisicaodecantosparabet365 = requests.request("GET", url, headers=headers, params=querystring).json()
+    return requisicaodecantosparabet365
      
-def processamentodecantos(size):
-    bar = size
+def processamentodecantos(fixtureinlive):
+    bar = fixtureinlive
     size = len(bar)
-    array = []
+    arrayfixtureidempatados = []
     tempodojogo = 80
     for x in range(0,size):        
         golshome = bar[x]['goals']['home']
         golsaway =  bar[x]['goals']['away']
         elapsed = bar[x]['fixture']['status']['elapsed']
-        C = bar[x]['teams']['home']['name']
-        D = bar[x]['teams']['away']['name']
-        E = bar[x]['league']['name']
-        F = bar[x]['league']['country']
-        G = bar[x]['events']
-        H = len(G)
-        I = bar[x]['fixture']['id']
+        teamhome = bar[x]['teams']['home']['name']
+        teamaway = bar[x]['teams']['away']['name']
+        liga = bar[x]['league']['name']
+        pais = bar[x]['league']['country']
+        eventos = bar[x]['events']
+        sizeeventos = len(eventos)
+        fixtureid = bar[x]['fixture']['id']
         if golshome == golsaway and elapsed >= tempodojogo:                    
-            array.append(I)
-            jazz = reqX(array)            
+            arrayfixtureidempatados.append(fixtureid)
+            jazz = requisicaodasfixtures(fixtureid)            
             if jazz['results'] >= 1:
                 
                 shape()
-                for y in range(0,H):                                    
+                for y in range(0,sizeeventos):                                    
                     
-                    AA = G[y]['detail']
-                    m = re. search('Red',AA)
+                    detalhesdoevento = eventos[y]['detail']
+                    cartosvermelhos = re. search('Red',detalhesdoevento)
                     
-                    if m:                        
-                        print(AA)
-                print('Time:{} x {} - liga:{} pais:{} elapsed: {} Fixture: {}\n'.format(C,D,E,F,elapsed,I))
+                    if cartosvermelhos:                        
+                        print('RED CARD')
+                print('Time:{} x {} - liga:{} pais:{} elapsed: {} Fixture: {}\n'.format(teamhome,teamaway,liga,pais,elapsed,fixtureid))
                 shape()
+                #print(eventos)
+                                    
                         
-                        
-                print(jazz)
+                print(jazz['response'][0]['bookmakers'][0]['bets'][0]['values'])
                 
             
         
@@ -86,5 +87,8 @@ def main():
 
 if __name__ == "__main__":
     while True:        
-        main()
-        time.sleep(60)
+        try:
+            main()
+            time.sleep(60)
+        except:
+            pass
