@@ -9,21 +9,20 @@ def timezone():
         'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
         'x-rapidapi-key': TOKEN
         }
-    response = requests.request("GET", url, headers=headers)    
-    responsep = response.json()['response']
-    for x in range(0,len(responsep)):
-        print(responsep[x]) 
+    response = requests.request("GET", url, headers=headers).json()['response']    
+    responsesize = len(response)
+    for x in range(0,responsesize):
+        print(response[x]) 
 
 def bookmakers():
     url = "https://api-football-v1.p.rapidapi.com/v3/odds/bookmakers"
-
     headers = {
         'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
         'x-rapidapi-key': TOKEN
         }
 
-    response = requests.request("GET", url, headers=headers)
-    print(response.json())   
+    response = requests.request("GET", url, headers=headers).json()
+    print(response)   
 
 def bets():
     url = "https://api-football-v1.p.rapidapi.com/v3/odds/bets"
@@ -31,13 +30,13 @@ def bets():
         'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
         'x-rapidapi-key': TOKEN
         }
-    response = requests.request("GET", url, headers=headers)
-    responsep = response.json()['response']
-    for x in range(0,len(responsep)):
-        print(responsep[x])
+    response = requests.request("GET", url, headers=headers).json()['response']
+    responsesize = len(response)    
+    for x in range(0,responsesize):
+        print(response[x])
 
 
-def betslive():
+def jogosinlive():
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
     querystring = {"live":"all"}
     headers = {
@@ -45,11 +44,13 @@ def betslive():
         'x-rapidapi-key': TOKEN
         }
 
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    responsep = response.json()['response']    
-    size = len(responsep)
-    print(responsep)
-
+    response = requests.request("GET", url, headers=headers, params=querystring).json()['response']    
+    responsesize = len(response)
+    for x in range(0,responsesize):
+        shape()
+        print(response[x])
+    #print(response)
+#@
 
 def betlivemap():
     url = "https://api-football-v1.p.rapidapi.com/v3/odds/mapping"
@@ -57,11 +58,10 @@ def betlivemap():
         'x-rapidapi-host': "api-football-v1.p.rapidapi.com",
         'x-rapidapi-key': TOKEN
         }
-    response = requests.request("GET", url, headers=headers)
-    responsep = response.json()['response']
-    size = len(responsep)
-    for x in range(0,size):
-        print(responsep[x])
+    response = requests.request("GET", url, headers=headers).json()['response']
+    sizeresponse = len(response)
+    for x in range(0,sizeresponse):
+        print(response[x])
 
 def brazilleagues():
     '''
@@ -122,12 +122,14 @@ def shape():
     print(tarugo)
 
 def main():      
-    #betslive()
+    timezone()
+    #jogosinlive()
     #bets()
     #betlivemap()
     #brazilleagues()
     #estatisticas()
-    jogadores()
+    #jogadores()
+    #bookmakers()
    
 
 main()
